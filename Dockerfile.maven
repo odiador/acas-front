@@ -1,0 +1,19 @@
+# Dockerfile para Maven
+FROM maven:3.8.6-openjdk-11-slim
+
+# Instalar herramientas básicas
+RUN apt-get update && apt-get install -y \
+    curl \
+    git \
+    vim \
+    && rm -rf /var/lib/apt/lists/*
+
+# Crear directorio de trabajo
+WORKDIR /workspace
+
+# Configurar Maven para usar más memoria
+ENV MAVEN_OPTS="-Xmx1024m"
+ENV MAVEN_CONFIG=""
+
+# Comando por defecto
+CMD ["mvn", "--version"]

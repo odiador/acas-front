@@ -1,0 +1,89 @@
+{
+  "Auth": {
+    "login": "Login",
+    "email": "Email",
+    "password": "Password",
+    "forgotPassword": "Forgot password?",
+    "submit": "Sign in",
+    "welcome": "Welcome back",
+    "subtitle": "Enter your credentials to access your account"
+  },
+  "Dashboard": {
+    "welcome": "Welcome",
+    "students": "Students",
+    "courses": "Courses",
+    "users": "Users",
+    "profile": "Profile",
+    "reports": "Reports",
+    "logout": "Logout",
+    "home": "Home"
+  },
+  "Students": {
+    "title": "Student Management",
+    "addNew": "Add New Student",
+    "edit": "Edit Student",
+    "delete": "Delete Student",
+    "name": "Name",
+    "email": "Email",
+    "enrolledCourses": "Enrolled Courses",
+    "list": "Student List",
+    "noStudents": "No students found"
+  },
+  "Courses": {
+    "title": "Courses",
+    "myCourses": "My Courses",
+    "allCourses": "All Courses",
+    "addNew": "Add New Course",
+    "name": "Course Name",
+    "description": "Description",
+    "instructor": "Instructor",
+    "list": "Course List",
+    "noCourses": "No courses found"
+  },
+  "Users": {
+    "title": "User Management",
+    "addNew": "Add New User",
+    "list": "User List",
+    "noUsers": "No users found",
+    "role": "Role",
+    "status": "Status"
+  },
+  "Reports": {
+    "title": "Reports & Statistics",
+    "generate": "Generate Report",
+    "export": "Export",
+    "dateRange": "Date Range"
+  },
+  "Profile": {
+    "title": "My Profile",
+    "edit": "Edit Profile",
+    "settings": "Settings",
+    "changePassword": "Change Password"
+  },
+  "Common": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "edit": "Edit",
+    "delete": "Delete",
+    "confirm": "Confirm",
+    "search": "Search",
+    "filter": "Filter",
+    "loading": "Loading...",
+    "noResults": "No results found",
+    "actions": "Actions",
+    "view": "View",
+    "create": "Create",
+    "update": "Update",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "close": "Close"
+  },
+  "Errors": {
+    "unauthorized": "Access Denied",
+    "unauthorizedMessage": "You don't have permission to access this page",
+    "notFound": "Page Not Found",
+    "serverError": "Server Error",
+    "tryAgain": "Try Again"
+  }
+}

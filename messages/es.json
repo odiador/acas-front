@@ -1,0 +1,89 @@
+{
+  "Auth": {
+    "login": "Iniciar Sesión",
+    "email": "Correo Electrónico",
+    "password": "Contraseña",
+    "forgotPassword": "¿Olvidaste tu contraseña?",
+    "submit": "Ingresar",
+    "welcome": "Bienvenido de nuevo",
+    "subtitle": "Ingresa tus credenciales para acceder a tu cuenta"
+  },
+  "Dashboard": {
+    "welcome": "Bienvenido",
+    "students": "Estudiantes",
+    "courses": "Cursos",
+    "users": "Usuarios",
+    "profile": "Perfil",
+    "reports": "Reportes",
+    "logout": "Cerrar Sesión",
+    "home": "Inicio"
+  },
+  "Students": {
+    "title": "Gestión de Estudiantes",
+    "addNew": "Agregar Estudiante",
+    "edit": "Editar Estudiante",
+    "delete": "Eliminar Estudiante",
+    "name": "Nombre",
+    "email": "Correo",
+    "enrolledCourses": "Cursos Inscritos",
+    "list": "Lista de Estudiantes",
+    "noStudents": "No se encontraron estudiantes"
+  },
+  "Courses": {
+    "title": "Cursos",
+    "myCourses": "Mis Cursos",
+    "allCourses": "Todos los Cursos",
+    "addNew": "Agregar Curso",
+    "name": "Nombre del Curso",
+    "description": "Descripción",
+    "instructor": "Instructor",
+    "list": "Lista de Cursos",
+    "noCourses": "No se encontraron cursos"
+  },
+  "Users": {
+    "title": "Gestión de Usuarios",
+    "addNew": "Agregar Usuario",
+    "list": "Lista de Usuarios",
+    "noUsers": "No se encontraron usuarios",
+    "role": "Rol",
+    "status": "Estado"
+  },
+  "Reports": {
+    "title": "Reportes y Estadísticas",
+    "generate": "Generar Reporte",
+    "export": "Exportar",
+    "dateRange": "Rango de Fechas"
+  },
+  "Profile": {
+    "title": "Mi Perfil",
+    "edit": "Editar Perfil",
+    "settings": "Configuración",
+    "changePassword": "Cambiar Contraseña"
+  },
+  "Common": {
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "edit": "Editar",
+    "delete": "Eliminar",
+    "confirm": "Confirmar",
+    "search": "Buscar",
+    "filter": "Filtrar",
+    "loading": "Cargando...",
+    "noResults": "No se encontraron resultados",
+    "actions": "Acciones",
+    "view": "Ver",
+    "create": "Crear",
+    "update": "Actualizar",
+    "back": "Atrás",
+    "next": "Siguiente",
+    "previous": "Anterior",
+    "close": "Cerrar"
+  },
+  "Errors": {
+    "unauthorized": "Acceso Denegado",
+    "unauthorizedMessage": "No tienes permiso para acceder a esta página",
+    "notFound": "Página No Encontrada",
+    "serverError": "Error del Servidor",
+    "tryAgain": "Intentar de Nuevo"
+  }
+}

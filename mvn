@@ -1,0 +1,45 @@
+#!/bin/bash
+
+# Script que simula el comando 'mvn' nativo usando Docker
+# Coloca este script en /usr/local/bin/mvn para tener 'mvn' disponible globalmente
+
+set -e
+
+# Función para imprimir mensajes de error
+error() {
+    echo "Error: $1" >&2
+    exit 1
+}
+
+# Verificar si Docker está disponible
+if ! command -v docker &> /dev/null; then
+    error "Docker no está instalado. Instala Docker para usar este comando."
+fi
+
+if ! docker info &> /dev/null; then
+    error "Docker no está corriendo. Inicia Docker para usar este comando."
+fi
+
+# Verificar si la imagen existe, si no, construirla
+if ! docker images | grep -q "retos-maven"; then
+    echo "Construyendo imagen Maven... (solo la primera vez)"
+    if ! docker build -f "$(dirname "$0")/../Dockerfile.maven" -t retos-maven "$(dirname "$0")/.." 2>/dev/null; then
+        error "No se pudo construir la imagen Maven. Verifica que el Dockerfile.maven existe."
+    fi
+fi
+
+# Obtener el directorio actual
+WORKDIR="$(pwd)"
+
+# Crear directorio .m2 si no existe
+mkdir -p "$HOME/.m2"
+
+# Ejecutar Maven con Docker usando el usuario actual
+exec docker run --rm \
+    -v "$WORKDIR:/workspace" \
+    -v "$HOME/.m2:/root/.m2" \
+    -w /workspace \
+    --network host \
+    -e MAVEN_CONFIG=/root/.m2 \
+    retos-maven \
+    mvn "$@"
