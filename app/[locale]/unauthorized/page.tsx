@@ -4,12 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Link } from '@/navigation';
 import { ShieldAlert } from 'lucide-react';
 
-type Props = {
-  params: Promise<{ locale: string }>;
-};
-
-export default async function UnauthorizedPage({ params }: Props) {
-  const { locale } = await params;
+export default async function UnauthorizedPage() {
   const t = await getTranslations('Errors');
 
   return (

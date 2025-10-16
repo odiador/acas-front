@@ -4,12 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 
-type Props = {
-  params: Promise<{ locale: string }>;
-};
-
-export default async function ProfilePage({ params }: Props) {
-  const { locale } = await params;
+export default async function ProfilePage() {
   const t = await getTranslations('Profile');
 
   return (

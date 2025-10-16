@@ -20,7 +20,8 @@ export default async function LocaleLayout({ children, params }: Props) {
   const { locale } = await params;
 
   // Validate locale
-  if (!locales.includes(locale as any)) {
+  const isValidLocale = locales.some((l) => l === locale);
+  if (!isValidLocale) {
     notFound();
   }
 

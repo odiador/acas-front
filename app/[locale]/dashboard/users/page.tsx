@@ -2,12 +2,7 @@ import { getTranslations } from 'next-intl/server';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 
-type Props = {
-  params: Promise<{ locale: string }>;
-};
-
-export default async function UsersPage({ params }: Props) {
-  const { locale } = await params;
+export default async function UsersPage() {
   const t = await getTranslations('Users');
 
   return (

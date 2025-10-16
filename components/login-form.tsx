@@ -13,6 +13,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { apiClient } from '@/lib/api-client';
 import type { LoginResponse } from '@/types/auth.types';
+import { AxiosError } from 'axios';
 
 // Credenciales de testing
 const TEST_ACCOUNTS = {
@@ -63,12 +64,17 @@ export function LoginForm({ onSuccess }: LoginFormProps = {}) {
         // Si no, redirigir al dashboard
         router.push('/dashboard');
       }
-    } catch (err: any) {
+    } catch (err) {
       console.error('Login error:', err);
-      const errorMessage = err.response?.data?.error?.message || 
-                          err.response?.data?.message || 
-                          t('invalidCredentials');
-      setError(errorMessage);
+      if (err instanceof AxiosError) {
+        const errorMessage = err.response?.data?.error?.message ||
+                            err.response?.data?.message ||
+                            t('invalidCredentials');
+        setError(errorMessage);
+      } else {
+        setError(t('invalidCredentials'));
+      }
+
     } finally {
       setIsLoading(false);
     }

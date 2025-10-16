@@ -1,14 +1,8 @@
 import { getTranslations } from 'next-intl/server';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Link } from '@/navigation';
 
-type Props = {
-  params: Promise<{ locale: string }>;
-};
-
-export default async function StudentsPage({ params }: Props) {
-  const { locale } = await params;
+export default async function StudentsPage() {
   const t = await getTranslations('Students');
 
   return (
