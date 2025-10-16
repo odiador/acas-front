@@ -14,7 +14,18 @@ import { Input } from '@/components/ui/input';
 import { apiClient } from '@/lib/api-client';
 import type { LoginResponse } from '@/types/auth.types';
 
-export function LoginForm() {
+// Credenciales de testing
+const TEST_ACCOUNTS = {
+  admin: { email: 'admin@acas.com', password: 'admin123', label: 'Admin' },
+  teacher: { email: 'teacher@acas.com', password: 'teacher123', label: 'Teacher' },
+  student: { email: 'student@acas.com', password: 'student123', label: 'Student' },
+};
+
+interface LoginFormProps {
+  onSuccess?: () => void;
+}
+
+export function LoginForm({ onSuccess }: LoginFormProps = {}) {
   const t = useTranslations('Auth');
   const router = useRouter();
   const { login } = useAuth();
@@ -23,26 +34,56 @@ export function LoginForm() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleLogin = async (loginEmail: string, loginPassword: string) => {
     setIsLoading(true);
     setError('');
 
     try {
-      const response = await apiClient.post<LoginResponse>('/auth/login', {
-        email,
-        password,
+      const response = await apiClient.post<{ data: LoginResponse; success: boolean }>('/auth/login', {
+        email: loginEmail,
+        password: loginPassword,
       });
 
-      const { user, token } = response.data;
+      // El backend devuelve { success: true, data: { user, token } }
+      const { user, token } = response.data.data || response.data;
+      
+      // Guardar token y usuario en el store (localStorage)
       login(user, token);
-      router.push('/dashboard');
+      
+      // Configurar el token en los headers para futuras peticiones
+      apiClient.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+      
+      // Pequeño delay para asegurar que el store se actualice
+      await new Promise(resolve => setTimeout(resolve, 100));
+      
+      // Si hay un callback onSuccess (para modales), ejecutarlo
+      if (onSuccess) {
+        onSuccess();
+      } else {
+        // Si no, redirigir al dashboard
+        router.push('/dashboard');
+      }
     } catch (err: any) {
       console.error('Login error:', err);
-      setError(err.response?.data?.message || 'Invalid credentials');
+      const errorMessage = err.response?.data?.error?.message || 
+                          err.response?.data?.message || 
+                          t('invalidCredentials');
+      setError(errorMessage);
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    await handleLogin(email, password);
+  };
+
+  const handleQuickLogin = async (role: keyof typeof TEST_ACCOUNTS) => {
+    const account = TEST_ACCOUNTS[role];
+    setEmail(account.email);
+    setPassword(account.password);
+    await handleLogin(account.email, account.password);
   };
 
   return (
@@ -84,9 +125,54 @@ export function LoginForm() {
         )}
         <Field>
           <Button type="submit" className="w-full" disabled={isLoading}>
-            {isLoading ? 'Loading...' : t('submit')}
+            {isLoading ? t('loading') : t('submit')}
           </Button>
         </Field>
+
+        {/* Quick Login Buttons for Testing */}
+        <div className="relative">
+          <div className="absolute inset-0 flex items-center">
+            <span className="w-full border-t" />
+          </div>
+          <div className="relative flex justify-center text-xs uppercase">
+            <span className="bg-background px-2 text-muted-foreground">
+              Quick Login (Testing)
+            </span>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-3 gap-2">
+          <Button
+            type="button"
+            variant="outline"
+            size="sm"
+            onClick={() => handleQuickLogin('admin')}
+            disabled={isLoading}
+            className="text-xs"
+          >
+            Admin
+          </Button>
+          <Button
+            type="button"
+            variant="outline"
+            size="sm"
+            onClick={() => handleQuickLogin('teacher')}
+            disabled={isLoading}
+            className="text-xs"
+          >
+            Teacher
+          </Button>
+          <Button
+            type="button"
+            variant="outline"
+            size="sm"
+            onClick={() => handleQuickLogin('student')}
+            disabled={isLoading}
+            className="text-xs"
+          >
+            Student
+          </Button>
+        </div>
       </FieldGroup>
     </form>
   );

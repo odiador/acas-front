@@ -28,13 +28,13 @@ export default async function LocaleLayout({ children, params }: Props) {
 
   return (
     <html lang={locale} suppressHydrationWarning>
-      <body>
+      <body
+        cz-shortcut-listen="true">
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
           enableSystem
           disableTransitionOnChange
-          cz-shortcut-listen="true"
         >
           <NextIntlClientProvider messages={messages}>
             {children}

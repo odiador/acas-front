@@ -13,7 +13,20 @@ export const apiClient = axios.create({
 // Request interceptor
 apiClient.interceptors.request.use(
   (config) => {
-    // Token is sent via cookies automatically
+    // Get token from localStorage
+    if (typeof window !== 'undefined') {
+      const authStorage = localStorage.getItem('auth-storage');
+      if (authStorage) {
+        try {
+          const { state } = JSON.parse(authStorage);
+          if (state?.token) {
+            config.headers.Authorization = `Bearer ${state.token}`;
+          }
+        } catch (error) {
+          console.error('Error parsing auth storage:', error);
+        }
+      }
+    }
     return config;
   },
   (error) => {

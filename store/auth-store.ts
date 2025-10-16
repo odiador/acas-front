@@ -1,10 +1,12 @@
 'use client';
 
 import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
+import { persist, createJSONStorage } from 'zustand/middleware';
 import type { User, AuthState } from '@/types/auth.types';
 
 interface AuthStore extends AuthState {
+  _hasHydrated: boolean;
+  setHasHydrated: (state: boolean) => void;
   setUser: (user: User | null) => void;
   setToken: (token: string | null) => void;
   login: (user: User, token: string) => void;
@@ -17,6 +19,12 @@ export const useAuthStore = create<AuthStore>()(
       user: null,
       token: null,
       isAuthenticated: false,
+      _hasHydrated: false,
+      setHasHydrated: (state) => {
+        set({
+          _hasHydrated: state,
+        });
+      },
       setUser: (user) =>
         set((state) => ({
           user,
@@ -42,6 +50,10 @@ export const useAuthStore = create<AuthStore>()(
     }),
     {
       name: 'auth-storage',
+      storage: createJSONStorage(() => localStorage),
+      onRehydrateStorage: () => (state) => {
+        state?.setHasHydrated(true);
+      },
     }
   )
 );

@@ -1,14 +1,9 @@
 import { LoginForm } from '@/components/login-form';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { useTranslations } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
 
-type Props = {
-  params: Promise<{ locale: string }>;
-};
 
-export default async function LoginPage({ params }: Props) {
-  const { locale } = await params;
+export default async function LoginPage() {
   const t = await getTranslations('Auth');
 
   return (

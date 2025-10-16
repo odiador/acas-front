@@ -6,7 +6,9 @@
     "forgotPassword": "Forgot password?",
     "submit": "Sign in",
     "welcome": "Welcome back",
-    "subtitle": "Enter your credentials to access your account"
+    "subtitle": "Enter your credentials to access your account",
+    "invalidCredentials": "Invalid email or password",
+    "loading": "Loading..."
   },
   "Dashboard": {
     "welcome": "Welcome",
@@ -16,7 +18,10 @@
     "profile": "Profile",
     "reports": "Reports",
     "logout": "Logout",
-    "home": "Home"
+    "home": "Home",
+    "noSessionTitle": "No active session",
+    "noSessionMessage": "Please sign in to continue",
+    "login": "Sign in"
   },
   "Students": {
     "title": "Student Management",
