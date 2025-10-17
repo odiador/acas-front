@@ -10,7 +10,12 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 
-export function ThemeToggle() {
+
+interface ThemeToggleProps {
+  direction?: 'down' | 'right';
+}
+
+export function ThemeToggle({ direction = 'down' }: ThemeToggleProps = {}) {
   const { setTheme } = useTheme();
 
   return (
@@ -22,7 +27,11 @@ export function ThemeToggle() {
           <span className="sr-only">Toggle theme</span>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
+
+      <DropdownMenuContent
+        align={direction === 'right' ? 'start' : 'end'}
+        side={direction === 'right' ? 'right' : 'bottom'}
+      >
         <DropdownMenuItem onClick={() => setTheme('light')}>
           Light
         </DropdownMenuItem>
