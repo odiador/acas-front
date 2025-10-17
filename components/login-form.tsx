@@ -102,6 +102,7 @@ export function LoginForm({ onSuccess }: LoginFormProps = {}) {
             type="email"
             placeholder="m@example.com"
             value={email}
+            autoComplete='email'
             onChange={(e) => setEmail(e.target.value)}
             required
             disabled={isLoading}
@@ -120,6 +121,8 @@ export function LoginForm({ onSuccess }: LoginFormProps = {}) {
           <Input
             id="password"
             type="password"
+            autoComplete="current-password"
+            placeholder="••••"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required

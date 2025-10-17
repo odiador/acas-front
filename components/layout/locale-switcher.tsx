@@ -1,7 +1,5 @@
 'use client';
 
-import { usePathname, useRouter } from '@/navigation';
-import { useLocale } from 'next-intl';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -9,20 +7,35 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { usePathname, useRouter } from '@/navigation';
 import { Globe } from 'lucide-react';
+import { useLocale } from 'next-intl';
+import { useSearchParams } from 'next/navigation';
 
 const locales = [
   { code: 'en', name: 'English' },
   { code: 'es', name: 'Español' },
 ];
 
-export function LocaleSwitcher() {
+interface LocaleSwitcherProps {
+  direction?: 'down' | 'right';
+  refresh?: boolean;
+}
+
+export function LocaleSwitcher({ direction = 'down', refresh = false }: LocaleSwitcherProps = {}) {
   const locale = useLocale();
-  const router = useRouter();
   const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const router = useRouter();
 
   const handleLocaleChange = (newLocale: string) => {
-    router.replace(pathname, { locale: newLocale });
+    if (refresh) {
+      const queryString = searchParams.toString();
+      const newUrl = `/${newLocale}${pathname}${queryString ? `?${queryString}` : ''}`;
+      window.location.href = newUrl;
+    } else {
+      router.replace(pathname, { locale: newLocale });
+    }
   };
 
   return (
@@ -32,7 +45,10 @@ export function LocaleSwitcher() {
           <Globe className="h-4 w-4" />
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
+      <DropdownMenuContent
+        align={direction === 'right' ? 'start' : 'end'}
+        side={direction === 'right' ? 'right' : 'bottom'}
+      >
         {locales.map((loc) => (
           <DropdownMenuItem
             key={loc.code}
